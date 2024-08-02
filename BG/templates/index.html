@@ -1,5 +1,28 @@
 {% extends 'base.html' %}
-
 {% block body %}
-<h1>Questions</h1>
+<h1 style="margin-left: 13%;margin-top: 2%;margin-bottom: 2%;"><b>Questions</b></h1>
+
+<div class="d-flex justify-content-center">
+<table class="table table-sm table-hover" style="margin-left: 13%;">
+    
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Title</th>
+            <th scope="col">Detail</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for article in articles %}
+        <tr>
+            <td>{{ article.id }}</td>
+            <td>{{ article.제목 }}</td>
+            <td>
+                <a href="{% url 'BG:detail' id=article.id %}">link</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
 {% endblock %}

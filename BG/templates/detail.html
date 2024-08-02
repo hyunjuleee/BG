@@ -1,25 +1,34 @@
 {% extends 'base.html' %}
-
 {% block body %}
-    <form action="">
-        <h1>{{article.title}}</h1>
-        <p>{{article.content}}</p>
-        <a href="{% url 'articles:update' id=article.id %}">update</a>
-    </form>
+    <div class="d-flex justify-content-center">
+        <div class="alert alert-light w-100 p-3" role="alert" style="margin-top: 1%;">
+            <h1 class="d-flex justify-content-center">{{article.제목}}</h1>
+        </div>
+    </div>
+        <div class="d-flex justify-content-center">
+        <div class="alert alert-danger w-25 p-3" role="alert">
+            <p class="d-flex justify-content-center">{{article.보기A}}</p>
+        </div>
+        <div class="alert alert-primary w-25 p-3" style="margin-left: 1%;" role="alert">
+            <p class="d-flex justify-content-center">{{article.보기B}}</p>
+        </div>
+    </div>
+<hr>
+<form action="{% url 'BG:comment_create' article_id=article.id %}" method="POST" style="margin-left: 14%;">
+    {% csrf_token %}
+    {{form}}
+    
+    <button type="submit"value="save" style="margin-top: 1%;" class="btn btn-secondary">제출</button>
+</form>
 
-    <hr>
-    <form action="{% url 'articles:comment_create' article_id=article.id %}" method="POST">
-        {% csrf_token %}
-        {{form}}
-        <input type="submit">
-    </form>
-    <p>댓글 출력 방법 1</p>
-    {% for comment in article.comment_set.all %}
-        <li>{{comment.content}}</li>
-        <form action="{% url 'articles:comment_delete' article_id=article.id id=comment.id %}" method="POST">
-            {% csrf_token %}
-            <input type="submit" value="delete">
-        </form>
-    {% endfor %}
+{% for comment in comments %}
+<div class="d-flex justify-content-center">
+    <div class="alert alert-secondary w-50 p-3 " role="alert">
+        <h4 class="alert-heading">{{comment.답변}}</h4>
+        <hr>
+        <p>{{comment.내용}}</p>
+    </div>
+</div>
+{% endfor %}
 
 {% endblock %}
